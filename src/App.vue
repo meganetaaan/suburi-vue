@@ -1,60 +1,78 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1></h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <md-whiteframe md-tag="md-toolbar" md-elevation="3">
+      <md-button class="md-icon-button" @click.native="openLeftSideNav">
+        <md-icon>menu</md-icon>
+      </md-button>
+      <h1 class="md-title">Daily Report</h1>
+      <span style="flex: 1;"></span>
+      <span>Taro Yamada</span>
+      <md-button class="md-icon-button">
+        <md-icon>account_circle</md-icon>
+      </md-button>
+    </md-whiteframe>
+    <md-sidenav class="md-left" ref="leftSideNav">
+      <md-toolbar class="md-large">
+        <div class="md-toolbar-container">
+          <h3 class="md-title">Nippo</h3>
+        </div>
+      </md-toolbar>
+      <md-list>
+        <md-list-item>
+          <router-link to="/list" @click.native="closeLeftSideNav">list</router-link>
+        </md-list-item>
+        <md-list-item>
+          <router-link to="/form" @click.native="closeLeftSideNav">form</router-link>
+        </md-list-item>
+      </md-list>
+    </md-sidenav>
+    <div class="body-container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import NippoForm from './Form.vue'
+import NippoList from './List.vue'
 export default {
+  components: {
+    NippoForm,
+    NippoList
+  },
   name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    openLeftSideNav () {
+      this.$refs.leftSideNav.open();
+    },
+    closeLeftSideNav () {
+      this.$refs.leftSideNav.close();
     }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  html,
+  body,
+  .app-viewport {
+    height: 100%;
+    overflow: hidden;
+  }
+  #app {
+    height: 100%;
+    width: 100%
+  }
+  .body-container {
+    height: 100%;
+    overflow: auto;
+  }
+  .nippoo-toolbar{
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
+  }
+  </style>
