@@ -44,7 +44,7 @@
       <md-input-container>
         <md-icon>title</md-icon>
         <label>title</label>
-        <md-input id="title" type="text" v-model="title"></md-input>
+        <md-input required id="title" type="text" v-model="title"></md-input>
       </md-input-container>
 
       <md-input-container>
@@ -68,7 +68,7 @@
 
       <md-layout>
         <span style="flex: 1;"></span>
-        <md-button class="md-primary">Clear</md-button>
+        <md-button class="md-primary">Cancel</md-button>
         <md-button class="md-accent md-raised" @click.native="save">Save</md-button>
       </md-layout>
     </form>
@@ -160,9 +160,7 @@ export default {
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2) {
     .nippo-form {
-      margin: auto;
       max-width: none;
-      padding: 16px;
     }
   }
 </style>

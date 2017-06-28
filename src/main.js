@@ -21,6 +21,10 @@ import NippoForm from './Form.vue'
 import NippoList from './List.vue'
 const routes = [
   {
+    path: '/',
+    redirect: '/list'
+  },
+  {
     path: '/form',
     component: NippoForm
   },

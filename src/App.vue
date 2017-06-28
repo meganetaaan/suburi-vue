@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="display: flex; flex-direction: column;">
     <md-whiteframe md-tag="md-toolbar" md-elevation="3">
       <md-button class="md-icon-button" @click.native="openLeftSideNav">
         <md-icon>menu</md-icon>
@@ -71,8 +71,17 @@ export default {
   .body-container {
     height: 100%;
     overflow: auto;
+    flex: 1;
+    padding: 16px;
   }
-  .nippoo-toolbar{
 
+  /* no padding on smart devices */
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .body-container {
+      padding: 0px;
+    }
   }
   </style>
