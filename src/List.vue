@@ -1,34 +1,54 @@
 <template>
-  <md-whiteframe class="nippo-form" md-elevation="1">
-    <md-list>
-      <template v-for="nippo in nippos">
-        <md-list-item>
-          <span>{{nippo.title}}</span>
-        </md-list-item>
-        <md-divider></md-divider>
+  <div>
+    <md-whiteframe class="nippo-list" md-elevation="1">
+      <md-list v-if="this.$store.state.reports.length > 0 "class="nippo-form" md-elevation="1">
+        <template v-for="report in reports">
+          <md-list-item>
+            <span>{{report.title}}</span> - <span>{{report.date}}</span>
+          </md-list-item>
+          <md-divider></md-divider>
+        </template>
+      </md-list>
+      <template v-else>
+        GO WRITE SOME NIPPOS NOW!!
       </template>
-    </md-list>
-  </md-whiteframe>
+    </md-whiteframe>
+    <md-button @click.native="onClickAdd" class="md-fab md-fab-bottom-right">
+      <md-icon>add</md-icon>
+    </md-button>
+  </div>
 </template>
 
 <script type="text/javascript">
   import VueRouter from 'vue-router'
-  require('vue-material/dist/vue-material.css')
+require('vue-material/dist/vue-material.css')
 export default {
   name: 'list',
-  data () {
-    return {
-      nippos: [{
-        'id': '000',
-        'title': '2017/06/26'
-      },{
-        'id': '001',
-        'title': '2017/06/25'
-      }]
+  computed: {
+    reports() {
+      return this.$store.state.reports
+    }
+  },
+  methods: {
+    onClickAdd () {
+      this.$router.push('/form')
     }
   }
 }
 </script>
 
 <style type="text/css">
+  .nippo-list {
+    margin: auto;
+    max-width: 80vw;
+    padding: 16px;
+  }
+  @media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .nippo-list {
+      max-width: none;
+    }
+  }
 </style>

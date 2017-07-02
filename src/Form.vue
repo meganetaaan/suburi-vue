@@ -68,7 +68,7 @@
 
       <md-layout>
         <span style="flex: 1;"></span>
-        <md-button class="md-primary">Cancel</md-button>
+        <md-button class="md-primary" @click.native="onClickCancel">Cancel</md-button>
         <md-button class="md-accent md-raised" @click.native="save">Save</md-button>
       </md-layout>
     </form>
@@ -114,9 +114,26 @@ export default {
       this.attachedImages = files
       this.createImage(files[0])
     },
+
     save (ev) {
+      if (this.title.length <= 0) {
+        console.log('title is required')
+        return
+      }
+      const report = {
+        reportDate: this.reportDate,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        message: this.message,
+        category: this.category,
+        title: this.title,
+        comment: this.comment,
+        attachedImages: this.attachedImages
+      }
+      this.$store.dispatch('addReport', report)
       this.$refs.snackbar.open()
     },
+
     createImage(file) {
       var image = new Image()
       var reader = new FileReader()
@@ -129,6 +146,9 @@ export default {
     },
     removeImage: function (e) {
       this.image = ''
+    },
+    onClickCancel: function() {
+      this.$router.push('/list')
     }
   }
 }
