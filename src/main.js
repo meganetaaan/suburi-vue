@@ -5,10 +5,9 @@ import router from './routes.js'
 import store from './store.js'
 import './material.js'
 
-new Vue({
+new Vue({ // eslint-disable-line no-new
   el: '#app',
   render: h => h(App),
   router,
   store
 })
-

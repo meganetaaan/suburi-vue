@@ -10,7 +10,7 @@ const store = new Vuex.Store({
     mode: 'list'
   },
   getters: {
-    getReportsByDate:  (state) => (date) => {
+    getReportsByDate: (state) => (date) => {
       return state.reports.find(report => report.date === date)
     }
   },
@@ -34,7 +34,7 @@ const store = new Vuex.Store({
       })
       state.count++
     },
-    update (state){
+    update (state) {
       state.count++
     }
   }

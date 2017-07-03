@@ -35,6 +35,7 @@
 <script>
 import NippoForm from './Form.vue'
 import NippoList from './List.vue'
+
 export default {
   components: {
     NippoForm,
@@ -48,10 +49,10 @@ export default {
   },
   methods: {
     openLeftSideNav () {
-      this.$refs.leftSideNav.open();
+      this.$refs.leftSideNav.open()
     },
     closeLeftSideNav () {
-      this.$refs.leftSideNav.close();
+      this.$refs.leftSideNav.close()
     }
   }
 }

@@ -13,4 +13,3 @@ Vue.material.registerTheme('default', {
 })
 
 require('vue-material/dist/vue-material.css')
-

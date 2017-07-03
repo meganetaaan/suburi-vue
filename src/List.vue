@@ -20,12 +20,11 @@
 </template>
 
 <script type="text/javascript">
-  import VueRouter from 'vue-router'
 require('vue-material/dist/vue-material.css')
 export default {
   name: 'list',
   computed: {
-    reports() {
+    reports () {
       return this.$store.state.reports
     }
   },

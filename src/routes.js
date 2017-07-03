@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-Vue.use(VueRouter)
 import NippoForm from './Form.vue'
 import NippoList from './List.vue'
+
+Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
@@ -23,4 +23,3 @@ const router = new VueRouter({
 })
 
 export default router
-

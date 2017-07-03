@@ -79,6 +79,7 @@
 </template>
 
 <script type="text/javascript">
+/* global FileReader */
 require('vue-material/dist/vue-material.css')
 export default {
   name: 'form',
@@ -92,7 +93,7 @@ export default {
       title: '',
       comment: '',
       attachedImages: [],
-      image: null,
+      image: null
     }
   },
   methods: {
@@ -134,8 +135,7 @@ export default {
       this.$refs.snackbar.open()
     },
 
-    createImage(file) {
-      var image = new Image()
+    createImage (file) {
       var reader = new FileReader()
       var vm = this
 
@@ -147,7 +147,7 @@ export default {
     removeImage: function (e) {
       this.image = ''
     },
-    onClickCancel: function() {
+    onClickCancel: function () {
       this.$router.push('/list')
     }
   }
