@@ -131,8 +131,10 @@ export default {
         comment: this.comment,
         attachedImages: this.attachedImages
       }
-      this.$store.dispatch('addReport', report)
-      this.$refs.snackbar.open()
+      this.$store.dispatch('createReport', {report}).then(() => {
+        this.$router.push('/list')
+        this.$refs.snackbar.open()
+      })
     },
 
     createImage (file) {

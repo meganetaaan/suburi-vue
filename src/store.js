@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import uuid from 'uuid'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    reports: [],
-    count: 0,
+    reports: {},
     mode: 'list'
   },
   getters: {
@@ -15,27 +15,32 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    addReport ({commit}, report) {
-      commit('addReport', report)
+    createReport ({commit}, payload) {
+      commit('createReport', payload)
+    },
+    updateReport ({commit}, payload) {
+      commit('updateReport', payload)
     }
   },
   mutations: {
-    addReport (state, report) {
+    /**
+     * add an empty report
+     */
+    createReport (state, payload) {
       // TODO: typecheck and validation
-      state.reports.push({
-        id: state.count,
-        date: report.date,
-        startTime: report.date,
-        endTime: report.date,
-        genre: report.genre,
-        title: report.title,
-        comment: report.comment,
-        attachedImage: report.attachedImage
-      })
-      state.count++
+      const report = payload.report
+      const id = uuid()
+      report.id = id
+      console.debug('new id: ', id)
+      Vue.set(state.reports, id, report)
     },
-    update (state) {
-      state.count++
+
+    /**
+     * update a report
+     */
+    updateReport (state, payload) {
+      const id = payload.id
+      state.reports[id] = payload.report
     }
   }
 })

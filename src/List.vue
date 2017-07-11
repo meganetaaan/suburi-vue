@@ -1,10 +1,10 @@
 <template>
   <div>
     <md-whiteframe class="nippo-list" md-elevation="1">
-      <md-list v-if="this.$store.state.reports.length > 0 "class="nippo-form" md-elevation="1">
+      <md-list v-if="Object.keys(this.$store.state.reports).length > 0 "class="nippo-form" md-elevation="1">
         <template v-for="report in reports">
           <md-list-item>
-            <span>{{report.title}}</span> - <span>{{report.date}}</span>
+            <span class="nippo-title">{{report.title}}</span><span class="nippo-date">{{report.date}}</span>
           </md-list-item>
           <md-divider></md-divider>
         </template>
@@ -25,7 +25,7 @@ export default {
   name: 'list',
   computed: {
     reports () {
-      return this.$store.state.reports
+      return Object.values(this.$store.state.reports)
     }
   },
   methods: {
