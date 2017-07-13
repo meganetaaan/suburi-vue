@@ -3,8 +3,10 @@
     <md-whiteframe class="nippo-list" md-elevation="1">
       <md-list v-if="Object.keys(this.$store.state.reports).length > 0 "class="nippo-form" md-elevation="1">
         <template v-for="report in reports">
-          <md-list-item>
-            <span class="nippo-title">{{report.title}}</span><span class="nippo-date">{{report.date}}</span>
+          <md-list-item @click="">
+            <router-link :to="{ name: 'report', params: { id: report.id }}">
+              <span class="nippo-title">{{report.title}}</span><span class="nippo-date">({{report.date}})</span>
+            </router-link>
           </md-list-item>
           <md-divider></md-divider>
         </template>
@@ -31,6 +33,9 @@ export default {
   methods: {
     onClickAdd () {
       this.$router.push('/form')
+    },
+    onClickReportItem () {
+      this.$store.dispatch('startEdit')
     }
   }
 }

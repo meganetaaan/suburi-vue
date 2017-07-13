@@ -4,8 +4,8 @@
       <h2>Worktime</h2>
       <md-input-container>
         <md-icon>today</md-icon>
-        <label for="reportDate">Date</label>
-        <md-input id="reportDate" type="date" v-model="reportDate"></md-input>
+        <label for="date">Date</label>
+        <md-input id="date" type="date" v-model="date"></md-input>
       </md-input-container>
 
       <md-layout md-gutter>
@@ -84,8 +84,18 @@ require('vue-material/dist/vue-material.css')
 export default {
   name: 'form',
   data () {
+    const id = this.$route.params.id
+    if (id != null) {
+      // get report data from store
+      const report = this.$store.getters.getReportById(id)
+      if (report != null) {
+        report.image = null
+        return report
+      }
+    }
     return {
-      reportDate: this._getCurrentDate(),
+      id: null,
+      date: this._getCurrentDate(),
       startTime: '09:00',
       endTime: this._getCurrentTime(),
       message: '',
@@ -122,7 +132,8 @@ export default {
         return
       }
       const report = {
-        reportDate: this.reportDate,
+        id: this.id,
+        date: this.date,
         startTime: this.startTime,
         endTime: this.endTime,
         message: this.message,
@@ -131,7 +142,8 @@ export default {
         comment: this.comment,
         attachedImages: this.attachedImages
       }
-      this.$store.dispatch('createReport', {report}).then(() => {
+      const operation = report.id == null ? 'createReport' : 'updateReport'
+      this.$store.dispatch(operation, {report}).then(() => {
         this.$router.push('/list')
         this.$refs.snackbar.open()
       })

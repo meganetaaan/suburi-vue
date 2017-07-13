@@ -10,6 +10,9 @@ const store = new Vuex.Store({
     mode: 'list'
   },
   getters: {
+    getReportById: (state) => (id) => {
+      return state.reports[id]
+    },
     getReportsByDate: (state) => (date) => {
       return state.reports.find(report => report.date === date)
     }
@@ -39,8 +42,10 @@ const store = new Vuex.Store({
      * update a report
      */
     updateReport (state, payload) {
-      const id = payload.id
-      state.reports[id] = payload.report
+      const report = payload.report
+      const id = report.id
+      console.debug('update id: ', id)
+      Vue.set(state.reports, id, report)
     }
   }
 })

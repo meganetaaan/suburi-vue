@@ -16,6 +16,11 @@ const routes = [
   {
     path: '/list',
     component: NippoList
+  },
+  {
+    path: '/report/:id',
+    name: 'report',
+    component: NippoForm
   }
 ]
 const router = new VueRouter({
