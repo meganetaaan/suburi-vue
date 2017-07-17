@@ -25,6 +25,9 @@
 require('vue-material/dist/vue-material.css')
 export default {
   name: 'list',
+  mounted () {
+    this.$store.dispatch('sync')
+  },
   computed: {
     reports () {
       return Object.values(this.$store.state.reports)
@@ -33,9 +36,6 @@ export default {
   methods: {
     onClickAdd () {
       this.$router.push('/form')
-    },
-    onClickReportItem () {
-      this.$store.dispatch('startEdit')
     }
   }
 }

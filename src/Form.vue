@@ -50,7 +50,7 @@
       <md-input-container>
         <md-icon>comment</md-icon>
         <label>comment</label>
-        <md-textarea id="comment" v-model="message"></md-textarea>
+        <md-textarea id="comment" v-model="comment"></md-textarea>
       </md-input-container>
 
       <md-input-container>
@@ -98,7 +98,6 @@ export default {
       date: this._getCurrentDate(),
       startTime: '09:00',
       endTime: this._getCurrentTime(),
-      message: '',
       category: 'daily',
       title: '',
       comment: '',
@@ -136,7 +135,6 @@ export default {
         date: this.date,
         startTime: this.startTime,
         endTime: this.endTime,
-        message: this.message,
         category: this.category,
         title: this.title,
         comment: this.comment,

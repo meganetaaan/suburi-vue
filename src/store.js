@@ -1,8 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import uuid from 'uuid'
+import NippoDao from './db.js'
 
 Vue.use(Vuex)
+var nippoDao
+
+(async function () {
+  nippoDao = new NippoDao()
+  await nippoDao.connect()
+})()
 
 const store = new Vuex.Store({
   state: {
@@ -18,26 +25,31 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    createReport ({commit}, payload) {
-      commit('createReport', payload)
+    async sync ({commit}, payload) {
+      const reports = await nippoDao.getAllReports()
+      commit('setReports', {reports})
     },
-    updateReport ({commit}, payload) {
-      commit('updateReport', payload)
-    }
-  },
-  mutations: {
-    /**
-     * add an empty report
-     */
-    createReport (state, payload) {
-      // TODO: typecheck and validation
+    async createReport ({commit}, payload) {
       const report = payload.report
       const id = uuid()
       report.id = id
-      console.debug('new id: ', id)
-      Vue.set(state.reports, id, report)
+      try {
+        await nippoDao.addReport(payload.report)
+        commit('updateReport', payload)
+      } catch (e) {
+        console.log(e)
+      }
     },
-
+    async updateReport ({commit}, payload) {
+      try {
+        await nippoDao.updateReport(payload.report)
+        commit('updateReport', payload)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  },
+  mutations: {
     /**
      * update a report
      */
@@ -46,6 +58,14 @@ const store = new Vuex.Store({
       const id = report.id
       console.debug('update id: ', id)
       Vue.set(state.reports, id, report)
+    },
+
+    setReports (state, payload) {
+      const reports = payload.reports
+      console.debug('reset all the reports: ', reports)
+      for (const report of reports) {
+        Vue.set(state.reports, report.id, report)
+      }
     }
   }
 })
