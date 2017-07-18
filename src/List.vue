@@ -5,7 +5,8 @@
         <template v-for="report in reports">
           <md-list-item @click="">
             <router-link :to="{ name: 'report', params: { id: report.id }}">
-              <span class="nippo-title">{{report.title}}</span><span class="nippo-date">({{report.date}})</span>
+              <span class="nippo-date">{{report.date}}({{dateStr(report.date)}})</span>
+              <span class="nippo-worktime">{{report.startTime}} - {{report.endTime}}</span>
             </router-link>
           </md-list-item>
           <md-divider></md-divider>
@@ -23,6 +24,7 @@
 
 <script type="text/javascript">
 require('vue-material/dist/vue-material.css')
+const WEEKDAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 export default {
   name: 'list',
   mounted () {
@@ -36,6 +38,9 @@ export default {
   methods: {
     onClickAdd () {
       this.$router.push('/form')
+    },
+    dateStr (date) {
+      return WEEKDAY[new Date(date).getDay()]
     }
   }
 }
@@ -46,6 +51,9 @@ export default {
     margin: auto;
     max-width: 80vw;
     padding: 16px;
+  }
+  .nippo-worktime {
+    color: #888
   }
   @media only screen
   and (min-device-width: 320px)
