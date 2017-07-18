@@ -60,6 +60,9 @@ const store = new Vuex.Store({
       Vue.set(state.reports, id, report)
     },
 
+    /**
+     * set all the reports
+     */
     setReports (state, payload) {
       const reports = payload.reports
       console.debug('reset all the reports: ', reports)
