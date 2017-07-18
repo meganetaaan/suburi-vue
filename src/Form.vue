@@ -42,12 +42,6 @@
       </md-input-container>
 
       <md-input-container>
-        <md-icon>title</md-icon>
-        <label>title</label>
-        <md-input required id="title" type="text" v-model="title"></md-input>
-      </md-input-container>
-
-      <md-input-container>
         <md-icon>comment</md-icon>
         <label>comment</label>
         <md-textarea id="comment" v-model="comment"></md-textarea>
@@ -67,11 +61,21 @@
       </template>
 
       <md-layout>
+        <md-button v-if="id" id="removeReportBtn" class="md-raised md-warn"
+          @click.native="openDialog('confirmRemove')">Remove</md-button>
         <span style="flex: 1;"></span>
         <md-button class="md-primary" @click.native="onClickCancel">Cancel</md-button>
         <md-button class="md-accent md-raised" @click.native="save">Save</md-button>
       </md-layout>
     </form>
+    <md-dialog md-open-from="#removeReportBtn" md-close-to="#removeReportBtn" ref="confirmRemove">
+      <md-dialog-content>Are you sure to remove this report?</md-dialog-content>
+
+      <md-dialog-actions>
+        <md-button class="md-primary" @click.native="closeDialog('confirmRemove')">Cancel</md-button>
+        <md-button class="md-warn" @click.native="remove(); closeDialog('confirmRemove')">Remove</md-button>
+      </md-dialog-actions>
+    </md-dialog>
     <md-snackbar :md-position="'bottom center'" ref="snackbar" :md-duration="4000">
       <span>Nippo saved!!</span>
     </md-snackbar>
@@ -99,7 +103,6 @@ export default {
       startTime: '09:00',
       endTime: this._getCurrentTime(),
       category: 'daily',
-      title: '',
       comment: '',
       attachedImages: [],
       image: null
@@ -115,6 +118,12 @@ export default {
     _getCurrentDate () {
       return '2017-06-20'
     },
+    openDialog (ref) {
+      this.$refs[ref].open()
+    },
+    closeDialog (ref) {
+      this.$refs[ref].close()
+    },
     onAttachedImageChanged (ev) {
       console.log(ev)
       const files = ev.target.files || ev.dataTransfer.files
@@ -126,17 +135,12 @@ export default {
     },
 
     save (ev) {
-      if (this.title.length <= 0) {
-        console.log('title is required')
-        return
-      }
       const report = {
         id: this.id,
         date: this.date,
         startTime: this.startTime,
         endTime: this.endTime,
         category: this.category,
-        title: this.title,
         comment: this.comment,
         attachedImages: this.attachedImages
       }
@@ -145,6 +149,11 @@ export default {
         this.$router.push('/list')
         this.$refs.snackbar.open()
       })
+    },
+
+    async remove () {
+      await this.$store.dispatch('removeReport', {id: this.id})
+      this.$router.push('/list')
     },
 
     createImage (file) {

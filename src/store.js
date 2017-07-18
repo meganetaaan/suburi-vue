@@ -47,6 +47,14 @@ const store = new Vuex.Store({
       } catch (e) {
         console.log(e)
       }
+    },
+    async removeReport ({commit}, payload) {
+      try {
+        await nippoDao.removeReport(payload.id)
+        commit('removeReport', payload)
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   mutations: {
@@ -69,6 +77,14 @@ const store = new Vuex.Store({
       for (const report of reports) {
         Vue.set(state.reports, report.id, report)
       }
+    },
+
+    /**
+     * remove a report
+     */
+    removeReport (state, payload) {
+      const id = payload.id
+      Vue.delete(state.reports, id)
     }
   }
 })
