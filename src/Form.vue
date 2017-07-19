@@ -1,5 +1,5 @@
 <template>
-  <md-whiteframe class="nippo-form" md-elevation="1">
+  <md-card class="nippo-form" md-elevation="1">
     <form novalidate @submit.stop.prevent>
       <h2>Worktime</h2>
       <md-input-container>
@@ -79,7 +79,7 @@
     <md-snackbar :md-position="'bottom center'" ref="snackbar" :md-duration="4000">
       <span>Nippo saved!!</span>
     </md-snackbar>
-  </md-whiteframe>
+  </md-card>
 </template>
 
 <script type="text/javascript">

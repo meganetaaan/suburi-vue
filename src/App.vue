@@ -67,7 +67,8 @@ export default {
   }
   #app {
     height: 100%;
-    width: 100%
+    width: 100%;
+    background-color: #ddd;
   }
   .body-container {
     height: 100%;
@@ -82,6 +83,7 @@ export default {
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2) {
     .body-container {
+      margin: 0px;
       padding: 0px;
     }
   }

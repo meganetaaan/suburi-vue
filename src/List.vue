@@ -1,21 +1,25 @@
 <template>
   <div>
-    <md-whiteframe class="nippo-list" md-elevation="1">
-      <md-list v-if="Object.keys(this.$store.state.reports).length > 0 "class="nippo-form" md-elevation="1">
-        <template v-for="report in reports">
-          <md-list-item @click="">
-            <router-link :to="{ name: 'report', params: { id: report.id }}">
-              <span class="nippo-date">{{report.date}}({{dateStr(report.date)}})</span>
-              <span class="nippo-worktime">{{report.startTime}} - {{report.endTime}}</span>
-            </router-link>
+    <template>
+      <md-list class="nippo-list" md-elevation="1">
+        <template v-if="Object.keys(this.$store.state.reports).length > 0"> 
+          <template v-for="report in reports">
+            <md-list-item @click="">
+              <router-link :to="{ name: 'report', params: { id: report.id }}">
+                <span class="nippo-date">{{report.date}}({{dateStr(report.date)}})</span>
+                <span class="nippo-worktime">{{report.startTime}} - {{report.endTime}}</span>
+              </router-link>
+            </md-list-item>
+            <md-divider></md-divider>
+          </template>
+        </template>
+        <template v-else>
+          <md-list-item>
+            <span>GO WRITE SOME NIPPOS NOW!!</span>
           </md-list-item>
-          <md-divider></md-divider>
         </template>
       </md-list>
-      <template v-else>
-        GO WRITE SOME NIPPOS NOW!!
-      </template>
-    </md-whiteframe>
+    </template>
     <md-button @click.native="onClickAdd" class="md-fab md-fab-bottom-right">
       <md-icon>add</md-icon>
     </md-button>
@@ -61,6 +65,7 @@ export default {
   and (-webkit-min-device-pixel-ratio: 2) {
     .nippo-list {
       max-width: none;
+      padding: 0px;
     }
   }
 </style>
