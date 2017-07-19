@@ -89,24 +89,21 @@ export default {
   name: 'form',
   data () {
     const id = this.$route.params.id
+    let report
     if (id != null) {
       // get report data from store
-      const report = this.$store.getters.getReportById(id)
-      if (report != null) {
-        report.image = null
-        return report
-      }
+      report = this.$store.getters.getReportById(id)
     }
-    return {
+    const defaultValue = {
       id: null,
       date: this._getCurrentDate(),
       startTime: '09:00',
       endTime: this._getCurrentTime(),
       category: 'daily',
       comment: '',
-      attachedImages: [],
       image: null
     }
+    return Object.assign(defaultValue, report)
   },
   methods: {
     _getCurrentTime () {
@@ -130,7 +127,6 @@ export default {
       if (!files.length) {
         return
       }
-      this.attachedImages = files
       this.createImage(files[0])
     },
 
@@ -142,7 +138,7 @@ export default {
         endTime: this.endTime,
         category: this.category,
         comment: this.comment,
-        attachedImages: this.attachedImages
+        image: this.image
       }
       const operation = report.id == null ? 'createReport' : 'updateReport'
       this.$store.dispatch(operation, {report}).then(() => {
