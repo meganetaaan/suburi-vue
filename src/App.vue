@@ -24,6 +24,10 @@
         <md-list-item>
           <router-link to="/form" @click.native="closeLeftSideNav">form</router-link>
         </md-list-item>
+        <md-divider/>
+        <md-list-item>
+          <a target="_blank" href="https://github.com/meganetaaan/suburi-vue">View source on GitHub</a>
+        </md-list-item>
       </md-list>
     </md-sidenav>
     <div class="body-container">
